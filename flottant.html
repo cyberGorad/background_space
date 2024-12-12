@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icônes de Cybersécurité et Linux</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 200vh;
+            background-color: black;
+            overflow-x: hidden;
+            position: relative;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .square {
+            position: absolute;
+            font-size: 40px;
+            animation: move 12s infinite linear, rotate 4s infinite linear;
+        }
+
+        @keyframes move {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(200px, 100px); }
+            50% { transform: translate(-150px, -50px); }
+            75% { transform: translate(-200px, 150px); }
+            100% { transform: translate(100px, -200px); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding-top: 20vh;
+        }
+
+        h1, p {
+            font-size: 2rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="background"></div>
+
+    <div class="content">
+        <h1>Icônes de Cybersécurité et Linux</h1>
+        <p>Voici des icônes animées représentant la cybersécurité, Linux, et d'autres technologies.</p>
+    </div>
+
+    <script>
+        const numSquares = 10;
+        const container = document.getElementById('background');
+        const languagesIcons = [
+            { icon: 'fa-shield-alt', color: '#00A9E0' },  // Cybersécurité (bouclier)
+            { icon: 'fa-terminal', color: '#A8B9CC' },    // Terminal (Linux, shell)
+            { icon: 'fa-linux', color: '#00A300' },       // Linux
+            { icon: 'fa-user-secret', color: '#FF6F61' },  // Hacking (utilisateur secret)
+            { icon: 'fa-key', color: '#F1C40F' },         // Clé de chiffrement
+            { icon: 'fa-file-code', color: '#8E44AD' },    // Script batch (fichier de code)
+            { icon: 'fa-firewall', color: '#E74C3C' },     // Pare-feu
+            { icon: 'fa-virus', color: '#D35400' },        // Virus informatique
+            { icon: 'fa-network-wired', color: '#2980B9' },// Réseau câblé
+            { icon: 'fa-cloud', color: '#9B59B6' }         // Cloud Computing
+        ];
+
+        function createSquare() {
+            let square = document.createElement('div');
+            square.classList.add('square');
+            square.style.left = Math.random() * window.innerWidth + 'px';
+            square.style.top = Math.random() * window.innerHeight + 'px';
+            square.style.animationDuration = (Math.random() * 3 + 4) + 's';
+
+            // Créer une icône Font Awesome aléatoire parmi les langages de programmation
+            const randomLang = languagesIcons[Math.floor(Math.random() * languagesIcons.length)];
+            let icon = document.createElement('i');
+            icon.classList.add('fas', randomLang.icon); // Ajouter la classe "fas" pour Font Awesome (icônes de marque)
+            icon.style.fontSize = '40px';
+            icon.style.color = randomLang.color; // Appliquer la couleur spécifique
+
+            square.appendChild(icon);
+            container.appendChild(square);
+
+            animateSquare(square);
+        }
+
+        function animateSquare(square) {
+            let posX = parseFloat(square.style.left);
+            let posY = parseFloat(square.style.top);
+            let directionX = Math.random() > 0.5 ? 1 : -1;
+            let directionY = Math.random() > 0.5 ? 1 : -1;
+
+            const speedX = Math.random() * 1.5 + 0.5; // Vitesse horizontale ralentie
+            const speedY = Math.random() * 1.5 + 0.5; // Vitesse verticale ralentie
+
+            function move() {
+                posX += speedX * directionX;
+                posY += speedY * directionY;
+
+                const maxX = window.innerWidth - 30;
+                const maxY = window.innerHeight - 30;
+
+                if (posX <= 0 || posX >= maxX) {
+                    directionX = -directionX;
+                }
+                if (posY <= 0 || posY >= maxY) {
+                    directionY = -directionY;
+                }
+
+                square.style.left = posX + 'px';
+                square.style.top = posY + 'px';
+
+                requestAnimationFrame(move);
+            }
+
+            move();
+        }
+
+        for (let i = 0; i < numSquares; i++) {
+            createSquare();
+        }
+    </script>
+</body>
+</html>
